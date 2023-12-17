@@ -1,0 +1,34 @@
+// For format details, see https://aka.ms/devcontainer.json. For config options, see the
+// README at: https://github.com/devcontainers/templates/tree/main/src/python
+{
+	"name": "pymerlin",
+	"image": "mcr.microsoft.com/devcontainers/python:1-3.12-bullseye",
+
+	"customizations": {
+		"vscode": {
+			"extensions": [
+				"GitHub.vscode-pull-request-github",
+				"VisualStudioExptTeam.vscodeintellicode",
+				"eamodio.gitlens",
+				"mads-hartmann.bash-ide-vscode",
+				"ms-python.black-formatter",
+				"ms-python.flake8",
+				"ms-python.isort",
+				"ms-python.mypy-type-checker",
+				"ms-python.python",
+				"ms-python.vscode-pylance",
+				"ms-toolsai.jupyter",
+				"ms-toolsai.jupyter-keymap",
+				"ms-toolsai.jupyter-renderers",
+				"njpwerner.autodocstring",
+				"stuart.unique-window-colors",
+				"styled-components.vscode-styled-components",
+				"vscode-icons-team.vscode-icons",
+				"xelad0m.jupyter-toc"
+			]		
+		}
+	},
+	"features": {
+		"ghcr.io/devcontainers-contrib/features/gh-cli:1": {}
+	}
+}

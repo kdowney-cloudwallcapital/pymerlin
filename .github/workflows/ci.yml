@@ -1,0 +1,37 @@
+name: Continuous Integration
+
+on: [push]
+
+jobs:
+  ci:
+    runs-on: ubuntu-latest
+    env:
+      SRC_DIR: src/python
+    strategy:
+      matrix:
+        # We'll test up to 3.10 until we're able to refactor for newer Python versions
+        python-version: ["3.8", "3.9", "3.10", "3.11", "3.12"]
+    steps:
+      - uses: actions/checkout@v3
+      - name: Set Up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v4
+        with:
+          python-version: ${{ matrix.python-version }}
+      - name: Install Build Dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install flake8 flake8-rst-docstrings pytest radon
+      - name: Install Runtime Dependencies
+        run: |
+          pip install -e .
+      - name: Lint
+        run: |
+          # do a basic linting of unit tests, and stricter (with complexity check) on source
+          flake8 $SRC_DIR --count --show-source --statistics --radon-max-cc 10
+          flake8 tests
+      - name: Analyze Complexity
+        run: radon cc $SRC_DIR
+      - name: Test
+        run: |
+          # run the unit tests
+          PYTHONPATH=$SRC_DIR python -m pytest tests/
